@@ -57,3 +57,27 @@ def test_import_stock_data_with_invalid_columns():
     except ValueError as e:
         assert str(e) == 'Number of columns in line 1 does not match number ' \
                          'of columns in stock data.'
+
+
+def test_import_stock_data_with_invalid_stock_data():
+    importer = StockImporter()
+
+    invalid_stock_data = [
+        ['invalid'],
+        ('invalid'),
+        {'invalid': 'invalid'},
+        False,
+        1,
+        1.0,
+        None
+    ]
+
+    columns = ['stock', 'date', 'price', 'currency', 'location']
+
+    try:
+        for stock_data in invalid_stock_data:
+            importer.import_stock_data(stock_data, columns)
+            assert False
+    except TypeError as e:
+        assert str(e) == 'stock_data must be a string. Got: ' \
+                            f'{type(stock_data)}'
