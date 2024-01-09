@@ -10,6 +10,16 @@ class StockImporter:
                           columns: list) -> pd.DataFrame:
         """Converts a list of stock data to a pandas dataframe.
         """
+        stock_list = self._to_list(stock_data)
+
+        if len(columns) != len(stock_list[0]):
+            raise ValueError("Number of columns does not match number of "
+                             "columns in stock data.")
+
+        df = pd.DataFrame(stock_list, columns=columns)
+        return df
+
+    def _to_list(self, stock_data: str) -> list:
         stock_data = stock_data.replace('\n', '')
         stock_list = stock_data.split(';')[:-1]
         stock_list = [stock.split(',') for stock in stock_list]
@@ -18,5 +28,4 @@ class StockImporter:
                 stock[i] = column.strip()
             stock[1] = int(stock[1])
             stock[2] = float(stock[2])
-        df = pd.DataFrame(stock_list, columns=columns)
-        return df
+        return stock_list

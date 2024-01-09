@@ -48,13 +48,12 @@ def test_import_stock_data_with_invalid_columns():
         EVN, 170447133, 31.18, USD, New York;
     """
 
-    expected_columns = ["stock", "date", "price",
-                        "currency", "location", "invalid"]
+    invalid_columns = ["stock", "date", "price",
+                       "currency", "location", "invalid"]
 
-    result = importer.import_stock_data(stock_data, expected_columns)
-
-    assert isinstance(result, pd.DataFrame)
-    assert result.columns.tolist() == expected_columns
-
-    expected_rows = stock_data.count(";")
-    assert len(result) == expected_rows
+    try:
+        importer.import_stock_data(stock_data, invalid_columns)
+        assert False
+    except ValueError as e:
+        assert str(e) == "Number of columns does not match number of " \
+                         "columns in stock data."
