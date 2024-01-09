@@ -1,5 +1,5 @@
 import pandas as pd
-from stock_importer.main import StockImporter
+from stock_importer import StockImporter
 
 
 def test_init():
