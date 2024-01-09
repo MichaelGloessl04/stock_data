@@ -33,6 +33,10 @@ class StockImporter:
 
     def _to_list(self, stock_data: str) -> list:
         """Converts the stock data to a list of lists."""
+        if not isinstance(stock_data, str):
+            raise TypeError('stock_data must be a string. Got: '
+                            f'{type(stock_data)}')
+
         stock_data = stock_data.replace('\n', '')
         stock_list = stock_data.split(';')[:-1]
         stock_list = [stock.split(',') for stock in stock_list]
