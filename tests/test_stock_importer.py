@@ -19,20 +19,20 @@ def test_import_stock_data():
     """
 
     stock_list = [
-        ["Lenzing", 170447112, 34.75, "EUR", "Vienna"],
-        ["Andritz", 170447131, 59.41, "USD", "New York"],
-        ["EVN", 170447132, 28.55, "EUR", "Vienna"],
-        ["EVN", 170447133, 31.18, "USD", "New York"],
+        ['Lenzing', 170447112, 34.75, 'EUR', 'Vienna'],
+        ['Andritz', 170447131, 59.41, 'USD', 'New York'],
+        ['EVN', 170447132, 28.55, 'EUR', 'Vienna'],
+        ['EVN', 170447133, 31.18, 'USD', 'New York'],
     ]
 
-    expected_columns = ["stock", "date", "price", "currency", "location"]
+    expected_columns = ['stock', 'date', 'price', 'currency', 'location']
 
     result = importer.import_stock_data(stock_data, expected_columns)
 
     assert isinstance(result, pd.DataFrame)
     assert result.columns.tolist() == expected_columns
 
-    expected_rows = stock_data.count(";")
+    expected_rows = stock_data.count(';')
     assert len(result) == expected_rows
 
     assert result.values.tolist() == stock_list
@@ -48,12 +48,12 @@ def test_import_stock_data_with_invalid_columns():
         EVN, 170447133, 31.18, USD, New York;
     """
 
-    invalid_columns = ["stock", "date", "price",
-                       "currency", "location", "invalid"]
+    invalid_columns = ['stock', 'date', 'price',
+                       'currency', 'location', 'invalid']
 
     try:
         importer.import_stock_data(stock_data, invalid_columns)
         assert False
     except ValueError as e:
-        assert str(e) == "Number of columns does not match number of " \
-                         "columns in stock data."
+        assert str(e) == 'Number of columns in line 1 does not match number ' \
+                         'of columns in stock data.'
