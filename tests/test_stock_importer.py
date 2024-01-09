@@ -18,12 +18,12 @@ def test_import_stock_data():
         EVN, 170447133, 31.18, USD, New York;
     """
 
-    result = importer.import_stock_data(stock_data)
+    expected_columns = ["stock", "date", "price", "currency", "location"]
+
+    result = importer.import_stock_data(stock_data, expected_columns)
 
     assert isinstance(result, pd.DataFrame)
-
-    expected_columns = ["stock", "date", "price", "currency", "location"]
     assert result.columns.tolist() == expected_columns
 
-    expected_rows = len(stock_data)
+    expected_rows = stock_data.count(";")
     assert len(result) == expected_rows
