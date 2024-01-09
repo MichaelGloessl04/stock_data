@@ -1,4 +1,4 @@
 from .main import StockImporter
 
 
-export = ['StockImporter']
+export = [StockImporter]
