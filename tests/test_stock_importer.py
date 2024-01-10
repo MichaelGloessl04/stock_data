@@ -1,7 +1,6 @@
 import pandas as pd
 from src.stock_importer import StockImporter
 
-
 def test_init():
     importer = StockImporter()
 
