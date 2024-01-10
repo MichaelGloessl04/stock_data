@@ -8,7 +8,20 @@ class StockImporter:
     def import_stock_data(self,
                           stock_data: str,
                           columns: list) -> pd.DataFrame:
-        """Converts a list of stock data to a pandas dataframe."""
+        """Converts a list of stock data to a pandas dataframe.
+
+        Args:
+            stock_data (str): A string containing stock data.
+            columns (list): A list of column names.
+
+        Raises:
+            ValueError: If the number of columns in the stock data does not
+                        match the number of columns in the columns list.
+            ValueError: If the stock data is not in the correct format.
+
+        Returns:
+            pd.DataFrame: A pandas dataframe containing the stock data.
+        """
         stock_list = self._to_list(stock_data)
 
         for i, stock in enumerate(stock_list):

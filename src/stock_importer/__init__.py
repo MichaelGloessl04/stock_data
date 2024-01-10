@@ -1,4 +1,4 @@
-from .main import StockImporter
+from .stock_importer import StockImporter
 
 
 export = [StockImporter]
